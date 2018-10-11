@@ -59,6 +59,7 @@ byte samples, samplesHigh, samplesLow, prevMod;
 #define CODE_P 3
 #define CODE_X 4
 byte code = CODE_N;
+unsigned long cyclesSinceTimeSet = 0x80000000;
 
 /* Timer 1 interrupt to measure signal
 http://www.robotshop.com/letsmakerobots/arduino-101-timers-and-interrupts
@@ -78,11 +79,12 @@ ISR(TIMER1_COMPA_vect)  {
     samplesHigh++;
   }
   prevMod = modulated;
+  ++cyclesSinceTimeSet;
   if (--samples == 0) {
   	// end of one sample interval
-    if (samplesLow > 63 && samplesLow < 90) code = CODE_P;
-    else if (samplesLow > 33 && samplesLow < 60) code = CODE_W;
-    else if (samplesLow > 5 && samplesLow < 30) code = CODE_U;
+    if      (samplesLow > 63*SAMPLE_HZ/100 && samplesLow < 90*SAMPLE_HZ/100) code = CODE_P;
+    else if (samplesLow > 33*SAMPLE_HZ/100 && samplesLow < 60*SAMPLE_HZ/100) code = CODE_W;
+    else if (samplesLow >  5*SAMPLE_HZ/100 && samplesLow < 30*SAMPLE_HZ/100) code = CODE_U;
     else code = CODE_X;
     samples = SAMPLE_HZ; samplesLow = samplesHigh = 0; // clear for next sample
   }
@@ -94,6 +96,7 @@ ISR(TIMER1_COMPA_vect)  {
 #define LED_DATA_PIN      9
 // Table of segments for digits 0-9
 const byte LED_Digit_Segments[] = {
+    // 0    1    2    3    4    5    6    7    8    9
     0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90};
 #define LED_SEGMENTS_OFF     0xFF
 // Table of segments for letters A-Z
@@ -130,7 +133,6 @@ int zoneHours = 0;
 byte frame[FRAME_SIZE], frameIndex = 0;
 short decode[FPEF];   // accumulated parts of frame
 boolean timeSet = false;
-unsigned long cyclesSinceTimeSet = 0x80000000;
 byte daysInMonth[] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
 //                     JanFebMarAprMayJunJulAugSepOctNovDec  
 
@@ -214,7 +216,6 @@ void timeToDisplay(void) {
   unsigned long sinceTimeSet = cyclesSinceTimeSet / (SAMPLE_HZ * 86400L); // days
   if (sinceTimeSet == 0) {
     sinceTimeSet = cyclesSinceTimeSet / (SAMPLE_HZ * 8640L);  // tenth days
-    //if (rtc.second() == 0) { Serial.print("sinceTimeSet "); Serial.println(sinceTimeSet); }
     if (sinceTimeSet > 9) display_segments[7] = 0xB6; // X
     else display_segments[7] = LED_Digit_Segments[sinceTimeSet];
     display_segments[6] = 0x47; // L.
@@ -299,11 +300,11 @@ void loop(void) {
       if (frameIndex == FRAME_SIZE) {
         decodeAndSetTime();
       }
-      Serial.write('\r'); Serial.write('\n');
+      if (Serial) { Serial.write('\r'); Serial.write('\n'); }
       frameIndex = 0;
     } 
     if (frameIndex < FRAME_SIZE) frame[frameIndex++] = code;
-    Serial.write(printCode[code]);
+      if (Serial) { Serial.write(printCode[code]); }
   	prevCode = code;  code = CODE_N;
   } else if (digitalRead(RTC_INTERRUPT_PIN) != lastCycle) {
     // 1 Hz signal from crystal clock
