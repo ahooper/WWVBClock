@@ -75,7 +75,7 @@ Timer 3,4,5 16bit only available on Arduino Mega boards
 ISR(TIMER1_COMPA_vect)  {
 	// OUT = VSS(low) when carrier amplitude at maximum;
 	// OUT = VDD(high) when carrier amplitude is reduced (modulated)
-	//                   -------digitalRead(RADIO_IN_PIN)--------
+	//                  (-------digitalRead(RADIO_IN_PIN)--------)
 	uint8_t modulated = (*portInputRegister(radioPort) & radioBit) ? 1 : 0;
   // Moving average filter (does not need to actually divide for an average)
   avg += modulated - past[xpast];
@@ -137,6 +137,23 @@ byte daysInMonth[] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
 
 void decodeAndSetTime(void) {
   // Decode frame parts
+  /*
+  decodeAndSetTime() is working with the table in FramePattern[], that
+  provides the order of the components in the one-minute frame. It checks
+  that the fixed markers (frame reference, end of frame, unweighted) come at
+  the expected slots in the one-minute, and also accumulates the bits of the
+  binary codes for the time and date decimal digit components into decode[].
+  The various decimal digit components each have a unique index in decode[]
+  defined by the enumeration FPxx. If the fixed markers don't match at the
+  expected points, the decode fails by return and the real-time clock is not
+  updated.
+  
+  decodeAndSetTime() is called from loop(), which is looking at the count of
+  timer-interrupt signal samples over a one second interval to determine the
+  length of the modulation using empirical thresholds. It saves the
+  one-seconds counts in frame[] and calls decodeAndSetTime() when it sees two
+  successive frame markers indicating the end of one frame and start of the next.
+  */
   memset(decode,0,sizeof decode);
   for (int x = 0; x < FRAME_SIZE; x++) {
     byte p = FramePattern[x], c = frame[x];
@@ -390,7 +407,8 @@ void setup(void) {
     TCCR1A = 0;
     TCCR1B = 0;
     TCNT1  = 0;
-    OCR1A = F_CPU / 256 / SAMPLE_HZ;    // compare match register 16MHz / 256 prescaler / SAMPLE_HZ
+    OCR1A = F_CPU / 256 / SAMPLE_HZ - 1;    // compare match register 16MHz / 256 prescaler / SAMPLE_HZ
+                                    // https://github.com/ahooper/WWVBClock/issues/1
     TCCR1B |= (1 << WGM12);   // CTC mode
     TCCR1B |= (1 << CS12);    // 256 prescaler 
     TIMSK1 |= (1 << OCIE1A);  // enable timer compare interrupt
