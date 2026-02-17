@@ -1,0 +1,1283 @@
+options:
+  parameters:
+    author: andy
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: rsp_wwvb4lif
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: RSP WWVB 4 LOWIF
+    window_size: (1000,1000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: chan_freq
+  id: variable
+  parameters:
+    comment: ''
+    value: '60000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [368, 80.0]
+    rotation: 0
+    state: enabled
+- name: chan_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '100'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [272, 80.0]
+    rotation: 0
+    state: enabled
+- name: chan_width
+  id: variable
+  parameters:
+    comment: ''
+    value: '30'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [464, 80.0]
+    rotation: 0
+    state: enabled
+- name: gain
+  id: variable
+  parameters:
+    comment: Starting value
+    value: 10e3
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [464, 12.0]
+    rotation: 0
+    state: true
+- name: if_gr
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: IF GR
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '1'
+    stop: '59'
+    value: '42'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1008, 16.0]
+    rotation: 0
+    state: true
+- name: playback_speed
+  id: variable
+  parameters:
+    comment: ''
+    value: '10'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [800, 12.0]
+    rotation: 0
+    state: enabled
+- name: pm_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: chan_rate
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [704, 12.0]
+    rotation: 0
+    state: enabled
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '500000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [272, 12.0]
+    rotation: 0
+    state: enabled
+- name: tune_freq
+  id: variable
+  parameters:
+    comment: ''
+    value: '140000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [368, 12.0]
+    rotation: 0
+    state: enabled
+- name: analog_agc_xx_0
+  id: analog_agc_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain: gain
+    max_gain: gain*10
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    rate: gain/chan_rate/20
+    reference: '0.8'
+    type: complex
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [576, 220.0]
+    rotation: 0
+    state: enabled
+- name: blocks_abs_xx_0
+  id: blocks_abs_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [520, 744.0]
+    rotation: 0
+    state: true
+- name: blocks_add_const_vxx_0
+  id: blocks_add_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: '-1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [904, 984.0]
+    rotation: 0
+    state: true
+- name: blocks_complex_to_float_0
+  id: blocks_complex_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [352, 840.0]
+    rotation: 0
+    state: true
+- name: blocks_file_sink_0
+  id: blocks_file_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    append: 'False'
+    comment: ''
+    file: rsp_wwvb.bin
+    type: complex
+    unbuffered: 'False'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [776, 228.0]
+    rotation: 0
+    state: disabled
+- name: blocks_file_sink_0_0
+  id: blocks_file_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    append: 'False'
+    comment: ''
+    file: rsp_wwvb4lif.bin
+    type: complex
+    unbuffered: 'False'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [248, 148.0]
+    rotation: 0
+    state: disabled
+- name: blocks_file_source_0
+  id: blocks_file_source
+  parameters:
+    affinity: ''
+    alias: ''
+    begin_tag: pmt.PMT_NIL
+    comment: ''
+    file: rsp_wwvb_3.bin
+    length: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0'
+    repeat: 'False'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [24, 460.0]
+    rotation: 0
+    state: disabled
+- name: blocks_file_source_0_0
+  id: blocks_file_source
+  parameters:
+    affinity: ''
+    alias: ''
+    begin_tag: pmt.PMT_NIL
+    comment: ''
+    file: rsp_wwvb_raw.bin
+    length: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0'
+    repeat: 'False'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [24, 348.0]
+    rotation: 0
+    state: disabled
+- name: blocks_freqshift_cc_0
+  id: blocks_freqshift_cc
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    freq: tune_freq-chan_freq
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    sample_rate: samp_rate
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [248, 236.0]
+    rotation: 0
+    state: enabled
+- name: blocks_integrate_xx_0
+  id: blocks_integrate_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    decim: chan_rate*60
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1080, 288.0]
+    rotation: 0
+    state: enabled
+- name: blocks_moving_average_xx_0
+  id: blocks_moving_average_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    length: chan_rate*10
+    max_iter: '4000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: 1/chan_rate/10*0.7
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [600, 772.0]
+    rotation: 0
+    state: enabled
+- name: blocks_moving_average_xx_1
+  id: blocks_moving_average_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    length: chan_rate*60
+    max_iter: '4000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: 1/(chan_rate*60)
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [704, 612.0]
+    rotation: 0
+    state: true
+- name: blocks_multiply_const_vxx_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: chan_rate/(2*math.pi)*10
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [880, 632.0]
+    rotation: 0
+    state: true
+- name: blocks_multiply_const_vxx_1
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: 1/math.pi*1e-5
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [864, 536.0]
+    rotation: 0
+    state: enabled
+- name: blocks_multiply_const_vxx_2
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: 1/(chan_rate*60)
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1096, 344.0]
+    rotation: 180
+    state: enabled
+- name: blocks_rms_xx_0
+  id: blocks_rms_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha: '0.0001'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: complex
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [912, 320.0]
+    rotation: 0
+    state: true
+- name: blocks_sub_xx_0
+  id: blocks_sub_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [768, 744.0]
+    rotation: 0
+    state: true
+- name: blocks_threshold_ff_0
+  id: blocks_threshold_ff
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    high: '0.1'
+    init: '0'
+    low: '-0.1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [528, 972.0]
+    rotation: 0
+    state: true
+- name: blocks_threshold_ff_1
+  id: blocks_threshold_ff
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    high: '0.1'
+    init: '0'
+    low: '-0.1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [880, 756.0]
+    rotation: 0
+    state: true
+- name: blocks_throttle_0
+  id: blocks_throttle
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 10x playback speed
+    ignoretag: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_second: chan_rate*playback_speed
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [224, 488.0]
+    rotation: 0
+    state: disabled
+- name: blocks_throttle_0_0
+  id: blocks_throttle
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    ignoretag: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_second: samp_rate
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [224, 416.0]
+    rotation: 0
+    state: disabled
+- name: digital_costas_loop_cc_0
+  id: digital_costas_loop_cc
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    order: '2'
+    use_snr: 'True'
+    w: 2*math.pi/200
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [440, 440.0]
+    rotation: 0
+    state: enabled
+- name: epy_block_0
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\nimport traceback\n\nclass wwvb_am(gr.sync_block):\n\
+      \    \"\"\"WWVB AM Decode\"\"\"\n\n    def __init__(self, sample_rate=1.0):\
+      \  # arguments require defaults\n        \"\"\"arguments to this function appear\
+      \ as parameters in GRC\"\"\"\n        gr.sync_block.__init__(\n            self,\n\
+      \            name='WWVB AM Decode',   # will appear in GRC\n            in_sig=[np.float32],\n\
+      \            out_sig=None # sink - no output\n        )\n        # if an attribute\
+      \ with the same name as a parameter is found,\n        # a callback is registered\
+      \ (properties work, too).\n        self.sample_rate = sample_rate\n        self.modcount\
+      \ = 0\n        self.prev_in = 0\n        self.prev_sym = '~'\n        self.FRAME_SIZE\
+      \ = 60\n        self.frameIndex = 0\n        self.frame = ['~']*self.FRAME_SIZE\
+      \     \n        \n    def decode(self):\n        f = self.frame\n        if\
+      \ f[0] == 'M' and f[9] == 'M' and f[19] == 'M' and f[29] == 'M' and f[39] ==\
+      \ 'M' and f[49] == 'M' and f[59] == 'M' and \\\n           f[4] == 0 and f[14]\
+      \ == 0 and f[24] == 0 and f[34] == 0 and f[44] == 0 and f[54] == 0:\n      \
+      \      try:\n                yr = 2000+f[45]*80+f[46]*40+f[47]*20+f[48]*10+f[50]*8+f[51]*4+f[52]*2+f[53]\n\
+      \                dy = f[22]*200+f[23]*100+f[25]*80+f[26]*40+f[27]*20+f[28]*10+f[30]*8+f[31]*4+f[32]*2+f[33]\n\
+      \                hr = f[12]*20+f[13]*10+f[15]*8+f[16]*4+f[17]*2+f[18]\n    \
+      \            mn = f[1]*40+f[2]*20+f[3]*10+f[5]*8+f[6]*4+f[7]*2+f[8]\n      \
+      \          uct = '.'+str(f[40]*8+f[41]*4+f[42]*2+f[43])\n                ucs\
+      \ = f[36]*4+f[37]*2+f[38]\n                uc = uct if ucs == 5 else '-'+uct\
+      \ if ucs == 2 else bin(f[36]*4+f[37]*2+f[38])[1:]+uct\n                ly =\
+      \ f[55]\n                ls = f[56]\n                ds = bin(f[57]*2+f[58])[1:]\n\
+      \                # NOTE time is reported at the end of the frame, i.e., one\
+      \ minute later\n                print(yr, 'd', dy, hr, ':', mn, 'UC', uc, 'LY',\
+      \ ly, 'LS', ls, 'DS', ds)\n            except Exception as err:\n          \
+      \      print('AM decode', type(err), err)\n                print(''.join([str(x)\
+      \ for x in f]))\n                print(traceback.format_exc())\n\n    def work(self,\
+      \ input_items, output_items):\n        for x in input_items[0]:\n          \
+      \  if x == 0:\n                self.modcount += 1\n                if self.prev_in\
+      \ == 1:\n                    mc = self.modcount;  self.modcount = 0\n      \
+      \              if   mc >= 68*self.sample_rate/100 and mc < 90*self.sample_rate/100:\
+      \ sym = 'M'\n                    elif mc >= 38*self.sample_rate/100 and mc <\
+      \ 60*self.sample_rate/100: sym = 1\n                    elif mc >=  8*self.sample_rate/100\
+      \ and mc < 30*self.sample_rate/100: sym = 0\n                    else: sym =\
+      \ 'X'\n                    #print(sym, end='', flush=True)\n               \
+      \     if sym == 'M' and self.prev_sym == 'M':\n                        # once\
+      \ per minute start of new frame\n                        #print(''.join([str(x)\
+      \ for x in self.frame]), self.frameIndex)\n                        if self.frameIndex\
+      \ == self.FRAME_SIZE:\n                            self.decode()\n         \
+      \                   self.frameIndex = 0\n                    if self.frameIndex\
+      \ < self.FRAME_SIZE: self.frame[self.frameIndex] = sym; self.frameIndex += 1\n\
+      \                    self.prev_sym = sym    \n            self.prev_in = x\n\
+      \            \n        return len(input_items [0])\n"
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    sample_rate: chan_rate
+  states:
+    _io_cache: ('WWVB AM Decode', 'wwvb_am', [('sample_rate', '1.0')], [('0', 'float',
+      1)], [], 'WWVB AM Decode', ['sample_rate'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1032, 768.0]
+    rotation: 0
+    state: enabled
+- name: epy_block_1
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\nfrom collections import deque\nimport datetime\nimport\
+      \ traceback\n\nclass wwvb_pm(gr.sync_block):\n    \"\"\"WWVB PM Decode\"\"\"\
+      \n    # https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=914904\n\n  \
+      \  def __init__(self, sample_rate=10):  # arguments require defaults\n     \
+      \   \"\"\"arguments to this function appear as parameters in GRC\"\"\"\n   \
+      \     gr.sync_block.__init__(\n            self,\n            name='WWVB PM\
+      \ Decode',   # will appear in GRC\n            in_sig=[np.float32],\n      \
+      \      out_sig=None # sink - no output\n        )\n        # if an attribute\
+      \ with the same name as a parameter is found,\n        # a callback is registered\
+      \ (properties work, too).\n        self.sample_rate = sample_rate\n        self.count0\
+      \ = 0\n        self.count1 = 0\n        self.prev_in = 0\n        self.bit_sync\
+      \ = 0\n        self.sync_T = [0,0,1,1,1,0,1,1,0,1,0,0,0]\n        self.sync_T_inv\
+      \ = [1-x for x in self.sync_T]\n        self.sync_M = [1,1,0,1,0,0,0,1,1,1,0,1,0]\n\
+      \        self.sync_len = len(self.sync_T)\n        self.bits_since_sync = 0\n\
+      \        self.window_len = 60\n        self.window = deque([0]*self.window_len,\
+      \ self.window_len) # could use numpy array with roll\n        # Table 4, sorted\n\
+      \        #  dst_ls    dst ls\n        # 0 0 0 1 1  1 1 0 x\n        # 0 0 1\
+      \ 0 0  0 0 1 0\n        #\n        # 0 1 0 0 0  0 0 0 x\n        # 0 1 1 0 1\
+      \  1 1 1 0\n        # 0 1 1 1 0  0 1 1 0\n        #\n        # 1 0 0 0 0  1\
+      \ 0 1 0\n        # 1 0 1 0 1  0 1 0 x\n        # 1 0 1 1 0  1 0 0 x\n      \
+      \  #\n        # 1 1 0 0 1  0 0 1 1\n        # 1 1 0 1 0  1 0 1 1\n        #\
+      \ 1 1 1 0 0  0 1 1 1\n        # 1 1 1 1 1  1 1 1 1\n        #\n        self.dst_on\
+      \ = [\n            # 00_000 _001 _010 _011 _100 _101 _110 _111\n           \
+      \     None,None,None,   3,   0,None,None,None,\n            # 01_000 _001 _010\
+      \ _011 _100 _101 _110 _111\n                   0,None,None,None,None,   3, \
+      \  1,None,\n            # 10_000 _001 _010 _011 _100 _101 _110 _111\n      \
+      \             2,None,None,None,None,   1,   2,None,\n            # 11_000 _001\
+      \ _010 _011 _100 _101 _110 _111\n                None,   0,   2,None,   1,None,None,\
+      \   3]\n        self.DS = ['No','Ends','Starts','Yes']\n        self.leap_sec\
+      \ = [\n            # 00_000 _001 _010 _011 _100 _101 _110 _111\n           \
+      \     None,None,None,   0,   2,None,None,None,\n            # 01_000 _001 _010\
+      \ _011 _100 _101 _110 _111\n                   0,None,None,None,None,   2, \
+      \  2,None,\n            # 10_000 _001 _010 _011 _100 _101 _110 _111\n      \
+      \             2,None,None,None,None,   0,   0,None,\n            # 11_000 _001\
+      \ _010 _011 _100 _101 _110 _111\n                None,   3,   3,None,   3,None,None,\
+      \   3]\n        self.LS = ['No','No','Negative','Positive']\n        \n    def\
+      \ decode_T(self, bf):\n        try:\n            #print('T', ''.join([str(b)\
+      \ for b in bf]))\n            time = bf[18]\n            for i in range(20,29):\
+      \ time = (time << 1) + bf[i]\n            for i in range(30,39): time = (time\
+      \ << 1) + bf[i]\n            for i in range(40,47): time = (time << 1) + bf[i]\n\
+      \            time_par = bf[13]*16+bf[14]*8+bf[15]*4+bf[16]*2+bf[17]\n      \
+      \      #time_par[0] = sum(modulo 2){time[23, 21, 20, 17, 16, 15, 14, 13, 9,\
+      \ 8, 6, 5, 4, 2, 0]}\n            #time_par[1] = sum(modulo 2){time[24, 22,\
+      \ 21, 18, 17, 16, 15, 14, 10, 9, 7, 6, 5, 3, 1]}\n            #time_par[2] =\
+      \ sum(modulo 2){time[25, 23, 22, 19, 18, 17, 16, 15, 11, 10, 8, 7, 6, 4, 2]}\n\
+      \            #time_par[3] = sum(modulo 2){time[24, 21, 19, 18, 15, 14, 13, 12,\
+      \ 11, 7, 6, 4, 3, 2, 0]}\n            #time_par[4] = sum(modulo 2){time[25,\
+      \ 22, 20, 19, 16, 15, 14, 13, 12, 8, 7, 5, 4, 3, 1]}\n            dst_ls   =\
+      \ bf[47]*16+bf[48]*8+bf[50]*4+bf[51]*2+bf[52]\n            dst_next = bf[53]*32+bf[54]*16+bf[55]*8+bf[56]*4+bf[57]*2+bf[58]\n\
+      \            dst_on = self.dst_on[dst_ls]\n            leap_sec = self.leap_sec[dst_ls]\n\
+      \            bt = datetime.datetime(2000,1,1,0,0,0,0)\n            dt = bt +\
+      \ datetime.timedelta(minutes=time)\n            #TODO time_par Hamming correction\n\
+      \            ok = (bf[19] == bf[46]) and (dst_on != None) and (leap_sec != None)\
+      \ and \\\n                    (bf[17] == bf[21]^bf[23]^bf[24]^bf[27]^bf[28]^bf[30]^bf[31]^bf[32]^bf[36]^bf[37]^bf[40]^bf[41]^bf[42]^bf[44]^bf[46])\
+      \ and \\\n                    (bf[16] == bf[20]^bf[22]^bf[23]^bf[26]^bf[27]^bf[28]^bf[30]^bf[31]^bf[35]^bf[36]^bf[38]^bf[40]^bf[41]^bf[43]^bf[45])\
+      \ and \\\n                    (bf[15] == bf[18]^bf[21]^bf[22]^bf[25]^bf[26]^bf[27]^bf[28]^bf[30]^bf[34]^bf[35]^bf[37]^bf[38]^bf[40]^bf[42]^bf[44])\
+      \ and \\\n                    (bf[14] == bf[20]^bf[23]^bf[25]^bf[26]^bf[30]^bf[31]^bf[32]^bf[33]^bf[34]^bf[38]^bf[40]^bf[42]^bf[43]^bf[44]^bf[46])\
+      \ and \\\n                    (bf[13] == bf[18]^bf[22]^bf[24]^bf[25]^bf[28]^bf[30]^bf[31]^bf[32]^bf[33]^bf[37]^bf[38]^bf[41]^bf[42]^bf[43]^bf[45])\n\
+      \    \n            # NOTE time is reported at the end of the frame, i.e., one\
+      \ minute later\n            print(dt.isoformat(),\n                    'DS',\
+      \ self.DS[dst_on] if dst_on != None else '?'+bin(dst_ls), #bin(dst_on)[1:] if\
+      \ dst_on != None else '?'+bin(dst_ls),\n                    'LS', self.LS[leap_sec]\
+      \ if leap_sec != None else '?'+bin(dst_ls),#bin(leap_sec)[1:] if leap_sec !=\
+      \ None else '?'+bin(dst_ls),\n                    'DN', bin(dst_next)[1:],\n\
+      \                    'NOTICE' if bf[49] else '',\n                    '\u2713\
+      ' if ok else '\U0001F147',\n                    'host', datetime.datetime.now(datetime.timezone.utc).time())\n\
+      \            return ok\n        except Exception as err:\n            print('PM\
+      \ decode', type(err), err)\n            print(''.join([str(b) for x in bf]))\n\
+      \            print(traceback.format_exc())\n            return False\n     \
+      \   \n    def bit(self, b):\n        #print('bit', b, sep='', end=' ', flush=True)\n\
+      \        self.window.append(b)\n        win = list(self.window) # convert as\
+      \ deque does not do slicing\n        #if self.bits_since_sync % 10 == 0:\n \
+      \       #    print(''.join([str(_) for _ in win[:self.sync_len]]), ''.join([str(_)\
+      \ for _ in win[self.sync_len:]]))\n        #    #if self.bits_since_sync >=\
+      \ 60:\n        #    for i in range(len(win)-self.sync_len):\n        #     \
+      \   #if win[i:i+self.sync_len] == self.sync_T: print(\"sync_T\", i)\n      \
+      \  #        c = sum([(win[i+j]*2-1)*(self.sync_T[j]*2-1) for j in range(self.sync_len)])\n\
+      \        #        if c > self.sync_len*0.8: print(\"sync_T\", c, i)\n      \
+      \  if win[:self.sync_len] == self.sync_T:\n            #print('SYNC_T')\n  \
+      \          self.decode_T(win)\n            self.bits_since_sync = 0\n      \
+      \  elif win[:self.sync_len] == self.sync_T_inv:\n            #print('SYNC_T_inv')\n\
+      \            self.decode_T([1-x for x in win])\n            self.bits_since_sync\
+      \ = 0\n        \n    def work(self, input_items, output_items):\n        for\
+      \ x in input_items[0]:\n            # x=1 for normal phase (bit=0), 0 for inverted\
+      \ (bit=1)\n            if x == 0:\n                self.count0 += 1\n      \
+      \      elif x == 1:\n                self.count1 += 1\n            else:\n \
+      \               print('PM unexpected', x)\n            if self.bit_sync:\n \
+      \               if self.count0+self.count1 == self.sample_rate:\n          \
+      \          # clock out a bit\n                    #print(self.count0, self.count1,\
+      \ sep=':', end=' ', flush=True)\n                    if self.count1 >= self.sample_rate*0.7:\n\
+      \                        self.bit(0)\n                    elif self.count0 >=\
+      \ self.sample_rate*0.7:\n                        self.bit(1)\n             \
+      \       else:\n                        print('PM lost bit synchronization',\
+      \ self.count0, self.count1)\n                        self.bit_sync = False\n\
+      \                    self.count0 = 0\n                    self.count1 = 0\n\
+      \                    self.bits_since_sync += 1\n                    if self.bits_since_sync\
+      \ > 3*60:\n                        print('PM lost frame synchronization', self.bits_since_sync)\n\
+      \                        self.bit_sync = False                      \n     \
+      \                   self.bits_since_sync = 0\n            elif x != self.prev_in:\n\
+      \                # edge for possible bit synchronization\n                if\
+      \ x == 1:\n                    if self.count0 >= self.sample_rate*0.9:\n   \
+      \                     print('PM edge', int(x), self.count0, self.count1, end='\
+      \ ')\n                        self.bit(1)\n                        self.bit_sync\
+      \ = True\n                        self.count0 = 0\n                        self.count1\
+      \ = 0\n                    #else:\n                    #    print(self.count0,\
+      \ self.count1, sep=':', end=' ', flush=True)\n                    self.count1\
+      \ += 1\n                elif x == 0:\n                    if self.count1 >=\
+      \ self.sample_rate*0.9:\n                        print('PM edge', int(x), self.count0,\
+      \ self.count1, end=' ')\n                        self.bit(0)\n             \
+      \           self.bit_sync = True\n                        self.count1 = 0\n\
+      \                        self.count0 = 0\n                    #else:\n     \
+      \               #    print(self.count0, self.count1, sep=':', end=' ', flush=True)\n\
+      \                    self.count0 += 1\n                else:\n             \
+      \       print('PM unexpected', x, self.count0, self.count1)\n            self.prev_in\
+      \ = x\n        return len(input_items[0])\n"
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    sample_rate: pm_rate
+  states:
+    _io_cache: ('WWVB PM Decode', 'wwvb_pm', [('sample_rate', '10')], [('0', 'float',
+      1)], [], 'WWVB PM Decode', ['sample_rate'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1032, 1096.0]
+    rotation: 0
+    state: enabled
+- name: epy_block_2
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\nimport math\n\n\nclass monitor_agc(gr.sync_block):\n\
+      \n    def __init__(self):\n        gr.sync_block.__init__(\n            self,\n\
+      \            name='Monitor RMS',   # will appear in GRC\n            in_sig=[np.float32],\n\
+      \            out_sig=[]\n        )\n\n    def work(self, input_items, output_items):\n\
+      \        print('RMS', input_items[0], end='')\n        if 'agc_block' in self.__dict__:\
+      \ print(' gain', self.agc_block.gain(), end='')\n        if 'costas_block' in\
+      \ self.__dict__: print(' freq.', self.costas_block.get_frequency(), self.costas_block.get_frequency()*100/2/math.pi,\
+      \ 'Hz', end='')\n        print()\n        return len(input_items[0])\n"
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('Monitor RMS', 'monitor_agc', [], [('0', 'float', 1)], [], '', [])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1096, 400.0]
+    rotation: 0
+    state: enabled
+- name: import_0
+  id: import
+  parameters:
+    alias: ''
+    comment: ''
+    imports: import math
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [168, 12.0]
+    rotation: 0
+    state: true
+- name: low_pass_filter_0
+  id: low_pass_filter
+  parameters:
+    affinity: ''
+    alias: ''
+    beta: '6.76'
+    comment: ''
+    cutoff_freq: chan_width
+    decim: int(samp_rate/chan_rate)
+    gain: '1'
+    interp: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate
+    type: fir_filter_ccf
+    width: chan_width/5
+    win: window.WIN_KAISER
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [424, 200.0]
+    rotation: 0
+    state: enabled
+- name: low_pass_filter_2
+  id: low_pass_filter
+  parameters:
+    affinity: ''
+    alias: ''
+    beta: '6.76'
+    comment: ''
+    cutoff_freq: '10'
+    decim: '1'
+    gain: '1'
+    interp: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: chan_rate
+    type: fir_filter_ccf
+    width: '2'
+    win: window.WIN_KAISER
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [192, 824.0]
+    rotation: 0
+    state: true
+- name: note_1
+  id: note
+  parameters:
+    alias: ''
+    comment: 'TODO
+
+      Sync correlation estimator ahead of Costas loop
+
+      Costas loop frequency value to tuner offset (* chan_rate/chan_freq ?)
+
+      Thresholds dependent on signal level
+
+      gr-sdrplay3 seems to hang after overload correction on screen lock
+
+      Time correction for filter delay
+
+      Correct decoded time for 1 minute on-time delay'
+    note: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [616, 76.0]
+    rotation: 0
+    state: true
+- name: qtgui_freq_sink_x_0
+  id: qtgui_freq_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    average: '0.2'
+    axislabels: 'True'
+    bw: samp_rate
+    color1: '"blue"'
+    color10: '"dark blue"'
+    color2: '"red"'
+    color3: '"green"'
+    color4: '"black"'
+    color5: '"cyan"'
+    color6: '"magenta"'
+    color7: '"yellow"'
+    color8: '"dark red"'
+    color9: '"dark green"'
+    comment: ''
+    ctrlpanel: 'False'
+    fc: tune_freq
+    fftsize: '4096'
+    freqhalf: 'True'
+    grid: 'True'
+    gui_hint: 0,0
+    label: Relative Gain
+    label1: Received
+    label10: ''''''
+    label2: ''''''
+    label3: ''''''
+    label4: ''''''
+    label5: ''''''
+    label6: ''''''
+    label7: ''''''
+    label8: ''''''
+    label9: ''''''
+    legend: 'False'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: Received Spectrum
+    nconnections: '1'
+    norm_window: 'False'
+    showports: 'False'
+    tr_chan: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_tag: '""'
+    type: complex
+    units: dB
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    wintype: window.WIN_BLACKMAN_hARRIS
+    ymax: '10'
+    ymin: '-140'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [240, 304.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_time_sink_x_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: black
+    color3: green
+    color4: red
+    color5: magenta
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'True'
+    gui_hint: ''
+    label1: Signal
+    label10: Signal 10
+    label2: Threshold
+    label3: AM
+    label4: Ph.Inv.
+    label5: Quad.
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '""'
+    nconnections: '5'
+    size: 10*chan_rate
+    srate: chan_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '2'
+    style3: '1'
+    style4: '1'
+    style5: '2'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '1'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '1.5'
+    ymin: '-1.5'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1040, 840.0]
+    rotation: 0
+    state: true
+- name: qtgui_time_sink_x_1
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'True'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: green
+    color3: red
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'True'
+    gui_hint: 0,1
+    label1: Freq.
+    label10: Signal 10
+    label2: Phase
+    label3: Error
+    label4: F. (Hz. x 10)
+    label5: In RMS
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: Costas Loop
+    nconnections: '5'
+    size: 5*chan_rate
+    srate: chan_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '1'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: '""'
+    ymax: 1e-4
+    ymin: -1e-4
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1032, 488.0]
+    rotation: 0
+    state: enabled
+- name: sdrplay3_rspdx_0
+  id: sdrplay3_rspdx
+  parameters:
+    AGC: 'False'
+    affinity: ''
+    agc_set_point: '-40'
+    alias: ''
+    antenna: Antenna C
+    bandwidth: 300e3
+    biasT: 'False'
+    center_freq: tune_freq
+    comment: ''
+    dab_notch_filter: 'True'
+    dc_offset_mode: 'True'
+    debug_mode: 'True'
+    freq_corr: '0.295'
+    hdr_mode: 'False'
+    if_gRdB: if_gr
+    iq_balance_mode: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    output_type: fc32
+    rf_gR: '27'
+    rf_notch_filter: 'True'
+    rsp_selector: ''
+    sample_rate: samp_rate
+    sample_sequence_gaps_check: 'False'
+    show_gain_changes: 'True'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [16, 208.0]
+    rotation: 0
+    state: enabled
+- name: snippet_0
+  id: snippet
+  parameters:
+    alias: ''
+    code: "#print('PM filter length', len(self.pm_filter_taps))\nchan_filt_taps =\
+      \ firdes.low_pass(1.0, self.samp_rate, self.chan_width, self.chan_width/2, window.WIN_KAISER,\
+      \ 6.76)\nprint('Channel filter length', len(chan_filt_taps))\n# Show tags on\
+      \ just one plot item\nself.qtgui_time_sink_x_0.enable_tags(False)\nself.qtgui_time_sink_x_0.enable_tags(0,True)\n\
+      self.qtgui_time_sink_x_1.enable_tags(False)\nself.qtgui_time_sink_x_1.enable_tags(0,True)\n\
+      # Locate blocks for Monitor\nif 'epy_block_2' in self.__dict__:\n\tif 'analog_agc_xx_0'\
+      \ in self.__dict__:\n\t\tself.epy_block_2.agc_block = self.analog_agc_xx_0\n\
+      \tif 'digital_costas_loop_cc_0' in self.__dict__:\n\t\tself.epy_block_2.costas_block\
+      \ = self.digital_costas_loop_cc_0\n# Limit Costas loop frequency drift\nself.digital_costas_loop_cc_0.set_min_freq(-0.5)\n\
+      self.digital_costas_loop_cc_0.set_max_freq(0.5)"
+    comment: ''
+    priority: '0'
+    section: main_after_init
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [968, 204.0]
+    rotation: 0
+    state: true
+- name: virtual_sink_0
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: Channel
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [888, 440.0]
+    rotation: 0
+    state: true
+- name: virtual_source_0
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: Channel
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [24, 864.0]
+    rotation: 0
+    state: true
+
+connections:
+- [analog_agc_xx_0, '0', blocks_file_sink_0, '0']
+- [analog_agc_xx_0, '0', blocks_rms_xx_0, '0']
+- [analog_agc_xx_0, '0', digital_costas_loop_cc_0, '0']
+- [blocks_abs_xx_0, '0', blocks_moving_average_xx_0, '0']
+- [blocks_abs_xx_0, '0', blocks_sub_xx_0, '0']
+- [blocks_add_const_vxx_0, '0', qtgui_time_sink_x_0, '3']
+- [blocks_complex_to_float_0, '0', blocks_abs_xx_0, '0']
+- [blocks_complex_to_float_0, '0', blocks_threshold_ff_0, '0']
+- [blocks_complex_to_float_0, '0', qtgui_time_sink_x_0, '0']
+- [blocks_complex_to_float_0, '1', qtgui_time_sink_x_0, '4']
+- [blocks_file_source_0, '0', blocks_throttle_0, '0']
+- [blocks_file_source_0_0, '0', blocks_throttle_0_0, '0']
+- [blocks_freqshift_cc_0, '0', low_pass_filter_0, '0']
+- [blocks_integrate_xx_0, '0', blocks_multiply_const_vxx_2, '0']
+- [blocks_moving_average_xx_0, '0', blocks_sub_xx_0, '1']
+- [blocks_moving_average_xx_0, '0', qtgui_time_sink_x_0, '1']
+- [blocks_moving_average_xx_1, '0', blocks_multiply_const_vxx_0, '0']
+- [blocks_multiply_const_vxx_0, '0', qtgui_time_sink_x_1, '3']
+- [blocks_multiply_const_vxx_1, '0', qtgui_time_sink_x_1, '1']
+- [blocks_multiply_const_vxx_2, '0', epy_block_2, '0']
+- [blocks_rms_xx_0, '0', blocks_integrate_xx_0, '0']
+- [blocks_rms_xx_0, '0', qtgui_time_sink_x_1, '4']
+- [blocks_sub_xx_0, '0', blocks_threshold_ff_1, '0']
+- [blocks_threshold_ff_0, '0', blocks_add_const_vxx_0, '0']
+- [blocks_threshold_ff_0, '0', epy_block_1, '0']
+- [blocks_threshold_ff_1, '0', epy_block_0, '0']
+- [blocks_threshold_ff_1, '0', qtgui_time_sink_x_0, '2']
+- [blocks_throttle_0, '0', blocks_rms_xx_0, '0']
+- [blocks_throttle_0, '0', digital_costas_loop_cc_0, '0']
+- [blocks_throttle_0_0, '0', blocks_freqshift_cc_0, '0']
+- [blocks_throttle_0_0, '0', qtgui_freq_sink_x_0, '0']
+- [digital_costas_loop_cc_0, '0', virtual_sink_0, '0']
+- [digital_costas_loop_cc_0, '1', blocks_moving_average_xx_1, '0']
+- [digital_costas_loop_cc_0, '1', qtgui_time_sink_x_1, '0']
+- [digital_costas_loop_cc_0, '2', blocks_multiply_const_vxx_1, '0']
+- [digital_costas_loop_cc_0, '3', qtgui_time_sink_x_1, '2']
+- [low_pass_filter_0, '0', analog_agc_xx_0, '0']
+- [low_pass_filter_2, '0', blocks_complex_to_float_0, '0']
+- [sdrplay3_rspdx_0, '0', blocks_file_sink_0_0, '0']
+- [sdrplay3_rspdx_0, '0', blocks_freqshift_cc_0, '0']
+- [sdrplay3_rspdx_0, '0', qtgui_freq_sink_x_0, '0']
+- [virtual_source_0, '0', low_pass_filter_2, '0']
+
+metadata:
+  file_format: 1
+  grc_version: 3.10.9.2
